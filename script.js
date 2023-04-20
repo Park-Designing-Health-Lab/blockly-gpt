@@ -1,21 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const button = document.getElementById('myButton');
-    const orgId = document.getElementById('orgId');
-    const apiKey = document.getElementById('apiKey');
+    const saveAuthButton = document.getElementById('saveAuth');
+    const deleteAuthButton = document.getElementById('deleteAuth');
+    const systemPrompt = document.getElementById('system-prompt');
+    const userPrompt = document.getElementById('user-prompt');
+    const response = document.getElementById('response');
+    const submitButton = document.getElementById('submit');
 
-    button.addEventListener('click', async function () {
-        const url = 'https://api.openai.com/v1/models';
-        const headers = new Headers({
-            'Authorization': `Bearer ${apiKey.value}`,
-            'OpenAI-Organization': orgId.value
-        });
+    systemPrompt.value = 'Act as an excellent developer.';
+    userPrompt.value = 'Write a Python code that sums up from 1 to n, and print it.';
 
-        try {
-            const response = await fetch(url, { headers: headers });
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    });
+    saveAuthButton.addEventListener('click', saveAuth);
+    deleteAuthButton.addEventListener('click', deleteAuth);
+    submitButton.addEventListener('click', fetchCompletion);
+    
+    const rightPane = document.getElementById('right-pane');
+
+    loadAuth();
 });
+
+

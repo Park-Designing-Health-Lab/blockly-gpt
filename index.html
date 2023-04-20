@@ -1,30 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Website</title>
+    <title>Blockly GPT</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    
 </head>
+
 <body>
-    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="row">
-            <div class="col-12">
-                <label for="orgId">Organization ID</label>
-                <input type="text" class="form-control" id="orgId" placeholder="Organization ID">
+    <div id="container">
+        <div id="left-pane">
+            <div>
+                <label for="system-prompt" class="form-label">System Role Prompt</label>
+                <textarea id="system-prompt" class="form-control" rows="3">Act as an excellent developer.</textarea>
             </div>
-            <div class="col-12 mt-2">
-                <label for="apiKey">OpenAI API KEY</label>
-                <input type="text" class="form-control" id="apiKey" placeholder="OpenAI API Key">
+            <div>
+                <label for="user-prompt" class="form-label">User Role Prompt</label>
+                <textarea id="user-prompt" class="form-control"
+                    rows="3">Write a Python code that sums up from 1 to n, and print it.</textarea>
             </div>
-            <div class="col-12 mt-2">
-                <button class="btn btn-primary" id="myButton">Fetch Models</button>
+            <button id="submit" class="btn btn-primary" type="button">Submit</button>
+            <div>
+                <label id="response-label" for="response" class="form-label hidden">Response</label>
+                <div id="response" class="markdown hidden">
+                </div>
+            </div>
+        </div>
+        <div id="right-pane">
+            <div id="auth-info" class="position-relative">
+                <span id="authMessage" class="text-muted"></span>
+                <button class="btn btn-danger btn-sm ms-2" id="deleteAuth">Delete Auth</button>
+            </div>
+            <div class="position-relative">
+                <label for="model-selection" class="form-label">Model Selection</label>
+                <select id="model-selection" class="form-select">
+                    <option>davinci-instruct-beta</option>
+                </select>
             </div>
         </div>
     </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog" backdrop="static" data-mdb-backdrop="static">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authModalLabel">Authentication</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Please enter your OpenAI API Key and Organization ID to use the Blockly GPT. Keys are saved in <b>your local browser storage</b>. You can delete them <b>anytime</b>.</p>
+                    <input type="text" class="form-control mb-2" id="orgId" placeholder="Organization ID">
+                    <input type="text" class="form-control mb-2" id="apiKey" placeholder="OpenAI API Key">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="saveAuth">Save Auth</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.3.0/dist/markdown-it.min.js"></script>
+    <script defer src="script.js"></script>
+    <script src="auth.js"></script>
+    <script src="models.js"></script>
+    <script src="completions.js"></script>
 </body>
+
 </html>

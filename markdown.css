@@ -1,0 +1,8 @@
+.markdown {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  white-space: pre-wrap;
+}
